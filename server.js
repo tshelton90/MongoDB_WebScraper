@@ -11,9 +11,6 @@ var PORT = process.env.port || 3000;
 //Intialize Express
 var app = express();
 
-//Require Routes
-// var routes = require('./routes')
-
 // Set Handlebars
 var exphbs = require("express-handlebars");
 // Connect Handlebars
@@ -21,7 +18,7 @@ app.engine(
   "handelbars",
   exphbs({
     defaultLayout: "main",
-    layoutsDir: path.join(__dirname, "/app/views/layoutes/"),
+    layoutsDir: path.join(__dirname, "/app/views/layouts/"),
     partialsDir: path.join(__dirname, "/app/views/partials/")
   })
 );
