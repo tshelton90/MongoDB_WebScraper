@@ -35,7 +35,7 @@ app.use(bodyParser.json());
 
 //Import routes and give server access to them
 require('./app/routes/apiroutes')(app);
-require('.htmlroutes')(app);
+require('./app/routes/htmlroutes')(app);
 
 
 // Deployed, using the deployed database. Otherwise use the local mongoHeadlines database
