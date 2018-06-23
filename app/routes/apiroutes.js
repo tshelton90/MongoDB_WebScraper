@@ -80,66 +80,43 @@ module.exports = (app) => {
           });
       })
 
-    app.get('/scrape', function(req, res) {
+    app.get('/scrape', function (req, res) {
+        const promises = [];
         request("https://www.nhl.com/", function(error, response, html) {
 
   // Load the body of the HTML into cheerio
   var $ = cheerio.load(html);
 
   // Empty array to save our scraped data
-  var results = {};
+  var articlesArray = [];
 
   // With cheerio, find each h4-tag with the class "headline-link" and loop through the results
   $("h4.headline-link").each(function(i, element) {
 
+    let result = {}
     // Save the text of the h4-tag as "title"
-    var title = $(element).text();
+    result.title = $(element).text();
 
     // Find the h4 tag's parent a-tag, and save it's href value as "link"
-    var link = $(element).parent().attr("href");
+    result.link = $(element).parent().attr("href");
 
     // Make an object with data we scraped for this h4 and push it to the results array
-    results.push({
-      title: title,
-      link: link
-    });
+    if(result.title) {
+        articlesArray.push(result);
+    };
   });
 
   // After looping through each h4.headline-link, log the results
-  if(title){
-      articlesArray.push(result);
-  };
+  
+  console.log(articlesArray);
+  db.Article.create(articlesArray)
+      .then((newArticles) => {
+          console.log(newArticles)
+          res.json(newArticles)
+      }).catch( (err) => {
+          return res.json(err);
+      })
 });
-    console.log(articlesArray);
-    db.Article.create(articlesArray)
-        .then((newArticles) => {
-            console.log(newArticles)
-            res.json(newArticles)
-        }).catch( (err) => {
-            return res.json(err);
-        })
-        // request('http://www.nba.com', (error, respons, html) => {
-
-        // let $ = cheerio.load(html);
-
-        // $('a.content_list--title').each( (i, element) {
-
-        //     let result = {};
-
-        //     result.link = 'http://www.gamespot.com' + $(element).attr('href');
-        //     result.title = $(element).data('content_list--title')
-        //     result.summary = $(element).children('h5').text();
-
-        //     if(result.title) {
-        //         db.Article.create(result)
-        //         .then( (newArticle) => {
-        //             console.log(newArticle)
-        //         })
-        //         .catch( (err) => {
-        //             return res.json(err);
-        //         })
-        //     };
-        // });
-        // });
+        
     });
 }
