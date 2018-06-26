@@ -1,30 +1,7 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <a class="navbar-brand" href="/">Video Game Scraper</a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup"
-    aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-    <div class="navbar-nav">
-      <a class="nav-item nav-link" href="/saved">Saved Articles </a>
-      <a id="scrape" class="nav-item nav-link active" href="/scrape">Scrape New Articles
-        <span class="sr-only">(current)</span>
-      </a>
-    </div>
-  </div>
-</nav>
-<div class="container">
-
-  <h3 id="banner">Articles courtesy of
-    <a href="http://www.gamespot.com">
-      <img src="/app/public/assets/img/sd-logo.png" alt="">
-    </a>
-  </h3>
-
-
+  <h3>Articles</h3>
   <ol>
 
-    {{#each dbArticles}}
+    {{#each dbarticles}}
 
     <hr>
     <li>
@@ -36,8 +13,6 @@
       <button data-id={{_id}} type="button" class="save btn btn-info">Save</button>
       {{/if}}
       </h5>
-
-      <p>{{summary}}</p>
 
       {{#if comment}}
       <ul> Comment
@@ -60,7 +35,7 @@
   </ol>
 
 <footer>
- <strong> &copy; Christopher Etges 2018 </strong>
+ <strong> &copy; ©2018 </strong>
   <a id="footer-link" href="/articles">Articles API</a>
 </footer>
 </div>

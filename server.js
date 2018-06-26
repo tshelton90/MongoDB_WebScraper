@@ -19,7 +19,7 @@ app.engine(
   "handelbars",
   exphbs({
     defaultLayout: "main",
-    ayoutsDir: path.join(__dirname, "/app/views/layouts/"),
+    LayoutsDir: path.join(__dirname, "/app/views/layouts/"),
     partialsDir: path.join(__dirname, "/app/views/partials/")
   })
 );
@@ -40,7 +40,7 @@ require('./app/routes/htmlroutes')(app);
 
 // Deployed, using the deployed database. Otherwise use the local mongoHeadlines database
 var MONGODB_URI =
-  process.env.MONGODB_URI || "mongodb://localhost/mongoHeadlines";
+  process.env.MONGODB_URI || "mongodb://localhost/articles";
 
 // Set mongoose to leverage built in JavaScript ES6 Promises
 // Connect to the Mongo DB

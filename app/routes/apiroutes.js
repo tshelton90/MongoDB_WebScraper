@@ -13,8 +13,8 @@ const app = express();
 
 module.exports = (app) => {
     app.get('/articles', function(req, res) {
-        db.Article.find({})
-            .then((mongoHeadlines) => {
+        db.articles.find({})
+            .then((articles) => {
                 return res.json(err);
             })
             .catch( (err) => {
@@ -23,7 +23,7 @@ module.exports = (app) => {
     });
 
     app.put('/save', function(req, res) {
-        db.Article.updateOne({_id: req.body.id}, { $set: { saved: true} })
+        db.articles.updateOne({_id: req.body.id}, { $set: { saved: true} })
         .then((updatedArticles) =>{
             res.json(updatedArticles);
         })
@@ -33,7 +33,7 @@ module.exports = (app) => {
     })
 
     app.put('/unsave', function(req, res) {
-        db.Article.updateOne({_id: req.body.id }, {$set: { saved: false} })
+        db.articles.updateOne({_id: req.body.id }, {$set: { saved: false} })
         .then( (updatedArticles) => {
             res.json(updatedArticles);
         })
@@ -43,10 +43,10 @@ module.exports = (app) => {
     })
 
     app.get('/articles/:id', function(req, res) {
-        db.Article.findOne({ _id: req.params.id})
+        db.articles.findOne({ _id: req.params.id})
         .populate('comment')
-        .then((dbArticles) => {
-            res.json(dbArticles);
+        .then((dbarticles) => {
+            res.json(dbarticles);
         }).catch((err) => {
             return res.json(err);
         })
@@ -109,7 +109,7 @@ module.exports = (app) => {
   // After looping through each h4.headline-link, log the results
   
   console.log(articlesArray);
-  db.Article.create(articlesArray)
+  db.articles.create(articlesArray)
       .then((newArticles) => {
           console.log(newArticles)
           res.json(newArticles)

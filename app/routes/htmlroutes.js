@@ -1,15 +1,15 @@
 const express = require('express');
 const db = require('../models');
-const mongoos = require('mongoose');
+const mongoose = require('mongoose');
 const path = require('path')
 
 //Routes
 module.exports = function (app) {
     app.get('/', function (req, res) {
-        db.Article.find({})
+        db.articles.find({})
         .populate('comment')
-            .then( function (dbArticles) {
-                res.render('index', {dbArticles});
+            .then( function (dbarticles) {
+                res.render('index', {dbarticles});
             })
             .catch(function (err){
                 return res.json(err);
@@ -18,10 +18,10 @@ module.exports = function (app) {
 
     //view saved articles
   app.get("/saved", function (req, res) {
-    db.Article.find({saved: true})
+    db.articles.find({saved: true})
     .populate("comment")
-      .then(function (dbArticles) {
-        res.render("saved", { dbArticles });
+      .then(function (dbarticles) {
+        res.render("saved", { dbarticles });
       })
       .catch(function (err) {
         return res.json(err);
